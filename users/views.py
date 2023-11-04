@@ -149,6 +149,11 @@ class User_registration(APIView):
             'message': 'Registered successfully'
         }
         return response
+    
+    def get(self, request):
+        user = User.objects.all()
+        serializer = UserDetailedSerializer(user)
+        return Response(serializer.data)
 
 
 class UserDetail(APIView):
@@ -159,7 +164,7 @@ class UserDetail(APIView):
             return Response({'message': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
 
         serializer = UserDetailedSerializer(user)
-        return Response(serializer.data)
+        return Response(serializer.data ,status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, id):
         try:
@@ -195,9 +200,6 @@ class UserDetail(APIView):
         return Response({'message': 'User deleted'}, status=status.HTTP_204_NO_CONTENT)
     
 
-class Userview(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserDetailedSerializer
 
 
 class Login_View(APIView):
