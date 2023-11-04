@@ -59,21 +59,12 @@ def recorder(food, user):
 
          
 class Dailyrecordviews(views.APIView):
-    # def get(self, request):
-    #     # Retrieve all DailyRecord objects from the database
-    #     daily_records = DailyRecord.objects.all()
-    #     serializer = DailyRecordSerializer(daily_records, many=True)
-    #     return Response(serializer.data, status=status.HTTP_200_OK)
-    # def post(self, request):
-    #     data = request.data
-    #     serializer = DailyRecordSerializer(data=data)
-
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     def get(self,request):
-        serializer = DailyRecordSerializer
+        try:
+            dr = DailyRecord.objects.all()
+        except DailyRecord.DoesNotExist:
+            return Response({'error':'query dies not exists'}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = DailyRecordSerializer(dr,many =True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     def post(self, request):
@@ -88,6 +79,30 @@ class Dailyrecordviews(views.APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class Dailydeatiled(views.APIView):
+    def get(self,request,dailyrecord_id):
+        try:
+            dr = DailyRecord.objects.filter(dailyrecord_id = dailyrecord_id).first()
+        except DailyRecord.DoesNotExist:
+            return Response({'error':'query dies not exists'}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = DailyRecordSerializer(dr,many =True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    def patch(self,request,dailyrecord_id):
+        try:
+            dr = DailyRecord.objects.filter(dailyrecord_id = dailyrecord_id).first()
+        except DailyRecord.DoesNotExist:
+            return Response({'error':'query dies not exists'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        serializer = DailyRecordSerializer(dr,data=request.data , partial= True)
+        
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+    
     
 
 class AggregatedDailyRecordView(views.APIView):
