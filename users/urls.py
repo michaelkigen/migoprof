@@ -16,5 +16,5 @@ urlpatterns = [
     path('reset_password/', RestetPassword_View.as_view(), name='reset_password'),
     path('password_checker/', PasswordChecker.as_view(), name='Password_Checker'),
     path('user/<int:id>/', UserDetail.as_view(), name='user-detail'),
-    path('user/', Userview.as_view({'get':'list'}), name='user-detail'),
+    path('user/', Userview.as_view(), name='user-detail'),
 ]
