@@ -152,7 +152,7 @@ class User_registration(APIView):
     
     def get(self, request):
         user = User.objects.all()
-        serializer = UserDetailedSerializer(user)
+        serializer = UserDetailedSerializer(user,many=True)
         return Response(serializer.data)
 
 
