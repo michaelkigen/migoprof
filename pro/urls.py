@@ -8,7 +8,6 @@ import reciept
 import chatbox
 import records
 import review
-import tester
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/',include('users.urls')),
@@ -19,5 +18,4 @@ urlpatterns = [
     path('chat/',include('chatbox.urls')),
     path('reviews/',include('review.urls')),
     path('records/',include('records.urls')),
-    path('tester/',include('tester.urls'))
 ]

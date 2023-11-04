@@ -61,7 +61,6 @@ INSTALLED_APPS = [
     'chatbox',
     'records',
     'review',
-    'tester',
 ]
 
 MIDDLEWARE = [
