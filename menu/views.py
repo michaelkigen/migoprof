@@ -92,6 +92,7 @@ class MenuupdateAPiView(views.APIView):
             return Response({'message': 'Food not found'}, status=status.HTTP_404_NOT_FOUND)
         print('START 1')
         food.delete()
+        food.save()
         print('START 2')
         print('DONE')
         return Response({'message': 'Food deleted'}, status=status.HTTP_204_NO_CONTENT)
