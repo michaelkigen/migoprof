@@ -85,12 +85,15 @@ class MenuupdateAPiView(views.APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, food_id):
+        print('START')
         try:
             food = Menu_Object.objects.get(food_id=food_id)
         except Menu_Object.DoesNotExist:
             return Response({'message': 'Food not found'}, status=status.HTTP_404_NOT_FOUND)
-
+        print('START 1')
         food.delete()
+        print('START 2')
+        print('DONE')
         return Response({'message': 'Food deleted'}, status=status.HTTP_204_NO_CONTENT)
 
 
