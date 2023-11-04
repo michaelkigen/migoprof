@@ -59,22 +59,13 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserDetailedSerializer(serializers.ModelSerializer):
-    verification_code = serializers.CharField(max_length=6, write_only=True)
 
     class Meta:
         model = User
-        fields = ['id','phone_number', 'email', 'first_name', 'last_name','password', 'verification_code','is_admin','is_staff','is_ccare']
+        fields = ['id','phone_number', 'email', 'first_name', 'last_name','password','is_admin','is_staff','is_ccare']
         extra_kwargs = {'password': {'write_only': True},'id': {'read_only': True}}
 
-    def create(self, validated_data):
-        verification_code = validated_data.pop('verification_code')
-        user = super().create(validated_data)
-        user.set_password(validated_data['password'])
-        user.save()
-        # Additional code for verification and saving the verification code
-        Verifications.objects.create(email=user.email, verification_code=verification_code)
-        return user
-        
+    
 
 class UserLoginSerializer(serializers.ModelSerializer):
     phone_number = serializers.CharField(max_length=15,min_length = 4)
