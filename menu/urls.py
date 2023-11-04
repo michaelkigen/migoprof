@@ -26,6 +26,6 @@ urlpatterns = [
     path("order/", CheckoutView.as_view()),
     path("process/", ProcessOrderView.as_view()),
     path("food/", MenuAPiView.as_view({'get': 'list','post': 'create'})),
-    path("food/<uuid:pk>/", MenuupdateAPiView.as_view()),
+    path("food/<uuid:food_id>/", MenuupdateAPiView.as_view()),
     path("orderd-food/<uuid:pk>/", OrdererdFood.as_view())
 ]
