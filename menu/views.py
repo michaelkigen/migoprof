@@ -50,33 +50,33 @@ class MenuAPiView(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    
+ 
 class MenuupdateAPiView(views.APIView):
-    def get(self,request,pk):
+    def get(self, request, food_id):
         try:
-            food = Menu_Object.objects.get(food_id =pk)
+            food = Menu_Object.objects.get(food_id=food_id)
         except Menu_Object.DoesNotExist:
             return Response({'message': 'food not found'}, status=status.HTTP_404_NOT_FOUND)
         serializer = Menu_ObjectSerializer(food)
         return Response(serializer.data)
-    
-    def put(self, request, id):
+
+    def put(self, request, food_id):
         try:
-            food = Menu_Object.objects.get(food_id=id)
+            food = Menu_Object.objects.get(food_id=food_id)
         except Menu_Object.DoesNotExist:
-            return Response({'message': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'message': 'Food not found'}, status=status.HTTP_404_NOT_FOUND)
 
         serializer = Menu_ObjectSerializer(food, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    def patch(self, request, id):
+
+    def patch(self, request, food_id):
         try:
-            food = Menu_Object.objects.get(food_id=id)
+            food = Menu_Object.objects.get(food_id=food_id)
         except Menu_Object.DoesNotExist:
-            return Response({'message': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'message': 'Food not found'}, status=status.HTTP_404_NOT_FOUND)
 
         serializer = Menu_ObjectSerializer(food, data=request.data, partial=True)
         if serializer.is_valid():
@@ -84,14 +84,15 @@ class MenuupdateAPiView(views.APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, id):
+    def delete(self, request, food_id):
         try:
-            food = Menu_Object.objects.get(food_id=id)
+            food = Menu_Object.objects.get(food_id=food_id)
         except Menu_Object.DoesNotExist:
-            return Response({'message': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'message': 'Food not found'}, status=status.HTTP_404_NOT_FOUND)
 
         food.delete()
-        return Response({'message': 'User deleted'}, status=status.HTTP_204_NO_CONTENT)
+        return Response({'message': 'Food deleted'}, status=status.HTTP_204_NO_CONTENT)
+
 
 # class MenuupdateAPiView(viewsets.ModelViewSet):
 #     serializer_class = Menu_ObjectSerializer
