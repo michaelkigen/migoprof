@@ -94,7 +94,7 @@ class MenuupdateAPiView(views.APIView):
         food.delete()
         print('START 2')
         print('DONE')
-        return Response({'message': 'Food deleted'}, status=status.HTTP_204_NO_CONTENT)
+        return Response({'message': 'Food deleted'}, status=status.HTTP_200_OK)
 
 
 # class MenuupdateAPiView(viewsets.ModelViewSet):
