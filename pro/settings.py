@@ -208,20 +208,20 @@ TERMII_SENDER_ID = 'your_termii_sender_id'
 
 ## Mpesa configuration
 
-MPESA_ENVIRONMENT = 'sandbox'
-HOST_NAME= 'https://treegroup@maiyotech.com'  
-CONSUMER_KEY = 'gXhHODrzK6sJUPobxSnF3KFPwuvx0inr'
-CONSUMER_SECRET = 'cImusuAt0SY3LZmT'
-MPESA_SHORTCODE = '174379'
+MPESA_ENVIRONMENT = os.environ.get("MPESA_ENVIRONMENT")
+HOST_NAME= 'https://testmanage-20ef9d49fe9a.herokuapp.com/'  
+CONSUMER_KEY = os.environ.get("MPESA_CONSUMER_KEY")
+CONSUMER_SECRET = os.environ.get("MPESA_CONSUMER_SECRET")
+MPESA_SHORTCODE = os.environ.get("MPESA_SHORTCODE")
 SAFARICOM_API = 'https://sandbox.safaricom.co.ke'
-MPESA_EXPRESS_SHORTCODE = '174379'
+MPESA_EXPRESS_SHORTCODE = os.environ.get("MPESA_SHORTCODE")
 MPESA_SHORTCODE_TYPE = 'paybill'
 MPESA_PASSKEY = 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919'
 MPESA_INITIATOR_USERNAME = 'testapi'
 MPESA_INITIATOR_SECURITY_CREDENTIAL = 'Safaricom999!*!'
 AUTH_URL = '/oauth/v1/generate?grant_type=client_credentials'
 TRANSACTION_TYPE= 'CustomerBuyGoodsOnline'
-TILL_NUMBER = '9303679'
+TILL_NUMBER = os.environ.get("TILL_NUMBER")
 '''MPESA_CONFIG = {
     'CONSUMER_KEY': 'xKfIPt144qAp2SkK9p0Q4g1b5QVpLRAN',
     'CONSUMER_SECRET': '2CNJGtUoeqN8n3Rr',
