@@ -208,7 +208,7 @@ TERMII_SENDER_ID = 'your_termii_sender_id'
 
 ## Mpesa configuration
 
-MPESA_ENVIRONMENT = 'testapi'
+MPESA_ENVIRONMENT = 'production'
 HOST_NAME=  'https://treegroup@maiyotech.com'   
 CONSUMER_KEY ='Z7G6LH7b9BSOlRnwCOGNBIYZ53BZP0xZ'
 CONSUMER_SECRET ='6hMTmQ09GePIzlr0'
