@@ -8,7 +8,7 @@ from Profile.models import Profile
 from users.models import User
 from datetime import datetime, timedelta
 from menu.models import Menu_Object
-from datetime import datetime, timedelta
+from django.utils import timezone
 # ...
 # Create your views here.
 
@@ -29,7 +29,7 @@ def convert_to_points(unavilable_food,user):
 
 
 def recorder(food, user):
-    current_time = datetime.now()  # Get the current date and time
+    current_time = timezone.now()  # Get the current date and time
     for item in food:
         if item['food']['is_avilable'] == True:
             food_name = item['food']['food_name']
