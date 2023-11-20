@@ -328,7 +328,8 @@ class OrdererdFood(views.APIView):
         current_time = datetime.now(timezone.utc)
         order.scaned_time = current_time
         order.qrc_image = ""
+        recorder(food,user)
         order.state = 'c'
         order.save()
-        recorder(food,user)
+        
         return Response(response_data)
