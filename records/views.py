@@ -38,7 +38,7 @@ def recorder(food, user):
 
             # Calculate the time difference between the current time and the record's date
             try:
-                record = DailyRecord.objects.filter(food=food_name)
+                record = DailyRecord.objects.filter(food=food_name).first()
                 time_difference = current_time - record.date
             except DailyRecord.DoesNotExist:
                 time_difference = timedelta(hours=24)  # Set a default time difference
