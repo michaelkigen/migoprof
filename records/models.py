@@ -8,6 +8,6 @@ class DailyRecord(models.Model):
     measuredFood = models.CharField( max_length=100,null = True)
     expectedQuantity = models.CharField(max_length=100,null= True)
     food = models.CharField( max_length=100)
-    quantity = models.IntegerField(null = True)
-    amount  = models.IntegerField(null = True)
+    quantity = models.IntegerField(default = 0)
+    amount  = models.IntegerField(default = 0)
     date = models.DateTimeField( auto_now_add=True)
