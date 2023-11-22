@@ -30,24 +30,28 @@ def convert_to_points(unavilable_food,user):
 
 def recorder(food, user):
     current_time = timezone.now()  # Get the current date and time
+
     for item in food:
         if item['food']['is_avilable'] == True:
             food_name = item['food']['food_name']
             quantity = item['quantity']
             sub_total = item['sub_total']
 
-            # Calculate the time difference between the current time and the record's date
             try:
+                # Attempt to retrieve the latest DailyRecord for the given food_name
                 record = DailyRecord.objects.filter(food=food_name).latest('date')
-                time_difference =current_time - record.date
             except DailyRecord.DoesNotExist:
-                time_difference = timedelta(hours=24)  # Set a default time difference
+                # If no DailyRecord exists, create a new one
+                record = DailyRecord(food=food_name, quantity=0, amount=0, date=current_time)
+
+            # Calculate the time difference between the current time and the record's date
+            time_difference = current_time - record.date
 
             # If the time difference exceeds 23 hours, create a new DailyRecord entry
             if time_difference.total_seconds() >= 23 * 3600:
                 record = DailyRecord(food=food_name, quantity=quantity, amount=sub_total, date=current_time)
             else:
-                # If it exists, increment the quantity and update the amount
+                # If it exists, update the quantity and amount
                 record.quantity += quantity
                 record.amount += sub_total
 
@@ -56,7 +60,6 @@ def recorder(food, user):
         if item['food']['is_avilable'] == False:
             unavilable_food = item['sub_total']
             convert_to_points(unavilable_food, user)
-
          
 class Dailyrecordviews(views.APIView):
     def get(self,request):
