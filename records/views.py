@@ -26,8 +26,6 @@ def convert_to_points(unavilable_food,user):
     profile.save()
 
 
-
-
 def recorder(food, user):
     current_time = timezone.now()  # Get the current date and time
 
@@ -50,16 +48,19 @@ def recorder(food, user):
             # If the time difference exceeds 23 hours, create a new DailyRecord entry
             if time_difference.total_seconds() >= 23 * 3600:
                 record = DailyRecord(food=food_name, quantity=quantity, amount=sub_total, date=current_time)
-            else:
-                # If it exists, update the quantity and amount
-                record.quantity += quantity
-                record.amount += sub_total
+
+            # Update the quantity and amount, providing default values if they are None
+            record.quantity = record.quantity or 0
+            record.amount = record.amount or 0
+            record.quantity += quantity
+            record.amount += sub_total
 
             record.save()
 
         if item['food']['is_avilable'] == False:
             unavilable_food = item['sub_total']
             convert_to_points(unavilable_food, user)
+
          
 class Dailyrecordviews(views.APIView):
     def get(self,request):
